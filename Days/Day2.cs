@@ -21,9 +21,9 @@ public class Day2 : IRiddle
     private class Game
     {
         public int Id { get; set; }
-        public bool CanHappen => Sets.All(s => s.Red <= 12 && s.Green <= 13 && s.Blue <= 14);
+        public bool CanHappen => Sets.All(s => s is { Red: <= 12, Green: <= 13, Blue: <= 14 });
         public int MaxColorMultiplied => Sets.Max(s => s.Red) * Sets.Max(s => s.Blue) * Sets.Max(s => s.Green);
-        public List<Set> Sets { get; set; } = [];
+        public List<Set> Sets { get; set; } = new List<Set>();
     }
 
     private class Set
@@ -33,7 +33,7 @@ public class Day2 : IRiddle
         public int Green { get; set; }
     }
 
-    private List<Game> CreateGames()
+    private static IEnumerable<Game> CreateGames()
     {
         var input = File.ReadAllLines("Days\\Inputs\\Day2.txt");
 

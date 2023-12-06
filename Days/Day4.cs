@@ -8,16 +8,12 @@ public class Day4 : IRiddle
     {
         var input = File.ReadAllLines("Days\\Inputs\\Day4.txt");
 
-        var sum = 0;
-
-        foreach (var line in input)
-        {
-            var splits = line.Split("|");
-            var winners = splits[0].Split(":")[1].Split(" ").Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => int.Parse(x.Trim()));
-            var picked = splits[1].Split(" ").Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => int.Parse(x.Trim()));
-
-            sum += GetPoints(winners, picked);
-        }
+        var sum = (
+            from line in input 
+            select line.Split("|") into splits 
+            let winners = splits[0].Split(":")[1].Split(" ").Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => int.Parse(x.Trim())) 
+            let picked = splits[1].Split(" ").Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => int.Parse(x.Trim())) 
+            select GetPoints(winners, picked)).Sum();
 
         return sum.ToString();
     }
@@ -61,13 +57,13 @@ public class Day4 : IRiddle
         return dic.Values.Sum().ToString();
     }
 
-    public int GetPoints(IEnumerable<int> winners, IEnumerable<int> picked)
+    private static int GetPoints(IEnumerable<int> winners, IEnumerable<int> picked)
     {
         var c = picked.Intersect(winners).Count();
         return c == 0 ? 0 : 1 << (c - 1);
     }
 
-    public int GetMatches(IEnumerable<int> winners, IEnumerable<int> picked)
+    private static int GetMatches(IEnumerable<int> winners, IEnumerable<int> picked)
     {
         return picked.Intersect(winners).Count();
     }

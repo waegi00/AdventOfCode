@@ -8,12 +8,7 @@ public class Day1 : IRiddle
     {
         var input = File.ReadAllLines("Days\\Inputs\\Day1.txt");
 
-        var sum = 0;
-
-        foreach (var item in input)
-        {
-            sum += FirstAndLastDigit(item);
-        }
+        var sum = input.Sum(FirstAndLastDigit);
 
         return sum.ToString();
     }
@@ -22,42 +17,32 @@ public class Day1 : IRiddle
     {
         var input = File.ReadAllLines("Days\\Inputs\\Day1.txt");
 
-        var sum = 0;
-
-        foreach (var item in input)
-        {
-            sum += FirstAndLastDigitWithText(item);
-        }
+        var sum = input.Sum(FirstAndLastDigitWithText);
 
         return sum.ToString();
     }
 
-    private int FirstAndLastDigit(string item)
+    private static int FirstAndLastDigit(string item)
     {
         int first = 0, last = 0;
 
-        for (var i = 0; i < item.Length; i++)
+        foreach (var elem in item.Where(char.IsNumber))
         {
-            if (char.IsNumber(item[i]))
-            {
-                first = int.Parse(item[i].ToString());
-                break;
-            }
+            first = int.Parse(elem.ToString());
+            break;
         }
 
         for (var i = item.Length - 1; i >= 0; i--)
         {
-            if (char.IsNumber(item[i]))
-            {
-                last = int.Parse(item[i].ToString());
-                break;
-            }
+            if (!char.IsNumber(item[i])) continue;
+            last = int.Parse(item[i].ToString());
+            break;
         }
 
         return first * 10 + last;
     }
 
-    private int FirstAndLastDigitWithText(string item)
+    private static int FirstAndLastDigitWithText(string item)
     {
         var texts = new List<string>
         {
@@ -83,13 +68,10 @@ public class Day1 : IRiddle
                 break;
             }
 
-            foreach (var text in texts)
+            foreach (var text in texts.Where(text => i + text.Length <= item.Length && item.Substring(i, text.Length) == text))
             {
-                if (i + text.Length <= item.Length && item.Substring(i, text.Length) == text)
-                {
-                    first = texts.IndexOf(text) + 1;
-                    goto A;
-                }
+                first = texts.IndexOf(text) + 1;
+                goto A;
             }
         }
         A:
@@ -102,13 +84,10 @@ public class Day1 : IRiddle
                 break;
             }
 
-            foreach (var text in texts)
+            foreach (var text in texts.Where(text => i + text.Length <= item.Length && item.Substring(i, text.Length) == text))
             {
-                if (i + text.Length <= item.Length && item.Substring(i, text.Length) == text)
-                {
-                    last = texts.IndexOf(text) + 1;
-                    goto B;
-                }
+                last = texts.IndexOf(text) + 1;
+                goto B;
             }
         }
         B:
