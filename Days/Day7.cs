@@ -8,13 +8,13 @@ public class Day7 : IRiddle
     {
         var input = File.ReadAllLines("Days\\Inputs\\Day7.txt");
 
-        var pokerHands = new List<PokerHand>();
-
-        foreach (var line in input)
-        {
-            var splits = line.Split(' ');
-            pokerHands.Add(new PokerHand { Hand = splits[0].Trim(), Bid = long.Parse(splits[1].Trim()) });
-        }
+        var pokerHands = input.Select(line => line.Split(' '))
+            .Select(splits =>
+                new PokerHand
+                {
+                    Hand = splits[0].Trim(),
+                    Bid = long.Parse(splits[1].Trim())
+                }).ToList();
 
         var vals = pokerHands.Select(x => new { bid = x.Bid, nums = x.CardValue().ToList() });
         vals = vals
@@ -32,13 +32,14 @@ public class Day7 : IRiddle
     {
         var input = File.ReadAllLines("Days\\Inputs\\Day7.txt");
 
-        var pokerHands = new List<PokerHand>();
-
-        foreach (var line in input)
-        {
-            var splits = line.Split(' ');
-            pokerHands.Add(new PokerHand(true) { Hand = splits[0].Trim(), Bid = long.Parse(splits[1].Trim()) });
-        }
+        var pokerHands = input
+            .Select(line => line.Split(' '))
+            .Select(splits =>
+                new PokerHand(true)
+                {
+                    Hand = splits[0].Trim(),
+                    Bid = long.Parse(splits[1].Trim())
+                }).ToList();
 
         var vals = pokerHands.Select(x => new { bid = x.Bid, nums = x.CardValue().ToList() });
         vals = vals
@@ -54,58 +55,54 @@ public class Day7 : IRiddle
 
     private class PokerHand(bool jackIsWeakest = false)
     {
-        private bool jIsWeakest = jackIsWeakest;
-        private string _hand = string.Empty;
+        private readonly string _hand = string.Empty;
         public string Hand
         {
-            get { return _hand; }
-            set
+            get => _hand;
+            init
             {
                 _hand = value;
-                cards = new Dictionary<char, long>();
-                foreach (var c in _hand)
+                _cards = new();
+                foreach (var c in _hand.Where(c => !_cards.TryAdd(c, 1)))
                 {
-                    if (!cards.TryAdd(c, 1))
-                    {
-                        cards[c]++;
-                    }
+                    _cards[c]++;
                 }
             }
         }
 
-        public long Bid { get; set; } = 0;
+        public long Bid { get; init; } = 0;
 
-        private Dictionary<char, long> cards = new Dictionary<char, long>();
+        private readonly Dictionary<char, long> _cards = new();
 
-        private long jCount => Hand.Count(x => x == 'J');
+        private long JCount => Hand.Count(x => x == 'J');
 
-        private bool IsFiveOfAKind => cards.Any(x => x.Value == 5)
-            || (jIsWeakest && cards.Any(x => x.Value + jCount == 5));
+        private bool IsFiveOfAKind => _cards.Any(x => x.Value == 5)
+            || (jackIsWeakest && _cards.Any(x => x.Value + JCount == 5));
 
-        private bool IsFourOfAKind => cards.Any(x => x.Value == 4)
-            || (jIsWeakest && cards.Any(x => x.Key != 'J' && x.Value + jCount == 4));
+        private bool IsFourOfAKind => _cards.Any(x => x.Value == 4)
+            || (jackIsWeakest && _cards.Any(x => x.Key != 'J' && x.Value + JCount == 4));
 
-        private bool IsFullHouse => cards.Count == 2 && cards.Any(x => x.Value == 3) && cards.Any(x => x.Value == 2)
-            || (jIsWeakest && cards.Count == 3 && jCount > 0);
+        private bool IsFullHouse => _cards.Count == 2 && _cards.Any(x => x.Value == 3) && _cards.Any(x => x.Value == 2)
+            || (jackIsWeakest && _cards.Count == 3 && JCount > 0);
 
-        private bool IsThreeOfAKind => cards.Any(x => x.Value == 3)
-            || (jIsWeakest && cards.Any(x => x.Value + jCount == 3));
+        private bool IsThreeOfAKind => _cards.Any(x => x.Value == 3)
+            || (jackIsWeakest && _cards.Any(x => x.Value + JCount == 3));
 
-        private bool IsTwoPair => cards.Count == 3 && cards.Where(x => x.Value == 2).Count() == 2
-            || (jIsWeakest && (jCount >= 2 || (cards.Any(x => x.Value == 2) && jCount == 1)));
+        private bool IsTwoPair => _cards.Count == 3 && _cards.Count(x => x.Value == 2) == 2
+            || (jackIsWeakest && (JCount >= 2 || (_cards.Any(x => x.Value == 2) && JCount == 1)));
 
-        private bool IsOnePair => cards.Any(x => x.Value == 2)
-            || (jIsWeakest && cards.Any(x => x.Value + jCount == 2));
+        private bool IsOnePair => _cards.Any(x => x.Value == 2)
+            || (jackIsWeakest && _cards.Any(x => x.Value + JCount == 2));
 
-        private bool IsHighCard => true;
+        private static bool IsHighCard => true;
 
         public IEnumerable<long> CardValue()
         {
             yield return Value();
 
-            for (var i = 0; i < Hand.Length; i++)
+            foreach (var h in Hand)
             {
-                yield return CardValue(Hand[i]);
+                yield return CardValue(h);
             }
         }
 
@@ -117,8 +114,7 @@ public class Day7 : IRiddle
             if (IsThreeOfAKind) { return 4; }
             if (IsTwoPair) { return 3; }
             if (IsOnePair) { return 2; }
-            if (IsHighCard) { return 1; }
-            return 0;
+            return IsHighCard ? 1 : 0;
         }
 
         private long CardValue(char c)
@@ -134,7 +130,7 @@ public class Day7 : IRiddle
                 '8' => 7,
                 '9' => 8,
                 'T' => 9,
-                'J' => jIsWeakest ? 0 : 10,
+                'J' => jackIsWeakest ? 0 : 10,
                 'Q' => 11,
                 'K' => 12,
                 'A' => 13,
