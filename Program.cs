@@ -3,6 +3,7 @@ using AdventOfCode2023.Days.Interfaces;
 
 var riddles = new List<IRiddle>
 {
+    new Day11(),
     new Day10(),
     new Day9(),
     new Day8(),
