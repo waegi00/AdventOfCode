@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using AdventOfCode2023.Days.Interfaces;
+﻿using AdventOfCode2023.Days.Interfaces;
 
 namespace AdventOfCode2023.Days;
 
