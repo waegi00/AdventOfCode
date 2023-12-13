@@ -45,7 +45,7 @@ public class Day5 : IRiddle
 
     public string SolveSecond()
     {
-        return "Solved with python solution";
+        return "";
     }
 
     private class Map
