@@ -21,22 +21,7 @@ public class Day12 : IRiddle
 
     public string SolveSecond()
     {
-        var input = File.ReadAllLines("Days\\Inputs\\Day12.txt");
-
-        var sum = 0;
-
-        var splitsList = input.Select(line => line.Split(' ')).ToList();
-        for (var i = 0; i < splitsList.Count; i++)
-        {
-            var splits = splitsList[i];
-            sum += CalculatePossibilities(
-                splits[0].Trim(),
-                splits[1].Trim().Split(",").Select(int.Parse),
-                4);
-            Console.WriteLine($"Solved {i + 1} of {splitsList.Count} ({(i + 1) * 100 / (double)splitsList.Count:0.##}%)");
-        }
-
-        return sum.ToString();
+        return "";
     }
 
     private static int CalculatePossibilities(string input, IEnumerable<int> numbers, int repeat = 0)
