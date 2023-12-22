@@ -43,7 +43,7 @@ public class Day4 : IRiddle
                 {
                     dic[c + i] += dic[i];
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     // Ignore as no card over the length of the input can be won
                 }

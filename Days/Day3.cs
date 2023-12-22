@@ -115,7 +115,6 @@ public class Day3 : IRiddle
         }
 
         var a = 0;
-        var b = 0;
 
         for (var i = -1; i <= 1 && x + i < data.GetLength(0); i++)
         {
