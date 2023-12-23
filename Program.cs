@@ -3,7 +3,8 @@ using AdventOfCode2023.Days.Interfaces;
 
 var riddles = new List<IRiddle>
 {
-    new Day17(),
+    new Day23(),
+    //new Day17(),
     //new Day16(), // Takes to long
     //new Day15(),
     //new Day14(),
