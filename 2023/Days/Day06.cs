@@ -2,7 +2,7 @@
 
 namespace AdventOfCode._2023.Days;
 
-public class Day6 : IRiddle
+public class Day06 : IRiddle
 {
     public string SolveFirst()
     {
