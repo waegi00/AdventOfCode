@@ -62,4 +62,17 @@ public static class ArrayHelper
             yield return (array[ni][nj], (ni, nj));
         }
     }
+
+    public static void SetValues<T>(this T[][] array, int i, int j, int i2, int j2, Func<T, T> f)
+    {
+        if (!IsValidPosition(array, i, j) || !IsValidPosition(array, i2, j2)) return;
+
+        for (var row = i; row <= i2; row++)
+        {
+            for (var col = j; col <= j2; col++)
+            {
+                array[row][col] = f(array[row][col]);
+            }
+        }
+    }
 }

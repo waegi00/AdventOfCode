@@ -2,6 +2,7 @@
 using AdventOfCode.Interfaces;
 
 const int year = 2015;
+const bool all = false;
 
 var typesInNamespace = Assembly
     .GetExecutingAssembly()
@@ -14,6 +15,11 @@ var typesInNamespace = Assembly
     .OrderByDescending(t => t.Name);
 
 var riddles = typesInNamespace.Select(Activator.CreateInstance).Cast<IRiddle>().ToList();
+
+if (!all)
+{
+    riddles = riddles.GetRange(0, 1);
+}
 
 riddles.ForEach(riddle =>
 {

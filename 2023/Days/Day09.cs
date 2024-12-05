@@ -47,7 +47,7 @@ public class Day09 : IRiddle
 
             var newNums = new List<int>();
 
-            for (int i = 0; i < nums.Count - 1; i++)
+            for (var i = 0; i < nums.Count - 1; i++)
             {
                 newNums.Add(nums[i + 1] - nums[i]);
             }
@@ -64,7 +64,7 @@ public class Day09 : IRiddle
 
             var newNums = new List<int>();
 
-            for (int i = 0; i < nums.Count - 1; i++)
+            for (var i = 0; i < nums.Count - 1; i++)
             {
                 newNums.Add(nums[i + 1] - nums[i]);
             }

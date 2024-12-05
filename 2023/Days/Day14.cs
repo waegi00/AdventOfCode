@@ -150,10 +150,10 @@ public static class CharMatrixExtensions
 {
     public static int HashValue(this char[][] matrix)
     {
-        int hash = 17;
-        for (int i = 0; i < matrix.Length; i++)
+        var hash = 17;
+        for (var i = 0; i < matrix.Length; i++)
         {
-            for (int j = 0; j < matrix[i].Length; j++)
+            for (var j = 0; j < matrix[i].Length; j++)
             {
                 hash = hash * 31 + matrix[i][j];
             }
