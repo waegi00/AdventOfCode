@@ -1,13 +1,12 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using AdventOfCode2023.Days.Interfaces;
+﻿using AdventOfCode.Interfaces;
 
-namespace AdventOfCode2023.Days;
+namespace AdventOfCode._2023.Days;
 
 public class Day17 : IRiddle
 {
     public string SolveFirst()
     {
-        var input = File.ReadAllLines("Days\\Inputs\\Day17.txt");
+        var input = File.ReadAllLines("2023\\Days\\Inputs\\Day17.txt");
 
         var points = new List<Point> { new(0, 0, 0, Direction.None, 0) }; // First field does not add to sum
 
@@ -86,7 +85,7 @@ public class Day17 : IRiddle
 
     public string SolveSecond()
     {
-        var input = File.ReadAllLines("Days\\Inputs\\Day17.txt");
+        var input = File.ReadAllLines("2023\\Days\\Inputs\\Day17.txt");
 
         var points = new List<Point> { new(0, 0, 0, Direction.None, 0) }; // First field does not add to sum
 

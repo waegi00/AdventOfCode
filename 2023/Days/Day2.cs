@@ -1,6 +1,6 @@
-﻿using AdventOfCode2023.Days.Interfaces;
+﻿using AdventOfCode.Interfaces;
 
-namespace AdventOfCode2023.Days;
+namespace AdventOfCode._2023.Days;
 
 public class Day2 : IRiddle
 {
@@ -35,7 +35,7 @@ public class Day2 : IRiddle
 
     private static IEnumerable<Game> CreateGames()
     {
-        var input = File.ReadAllLines("Days\\Inputs\\Day2.txt");
+        var input = File.ReadAllLines("2023\\Days\\Inputs\\Day2.txt");
 
         var games = new List<Game>();
 

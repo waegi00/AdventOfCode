@@ -1,12 +1,12 @@
-﻿using AdventOfCode2023.Days.Interfaces;
+﻿using AdventOfCode.Interfaces;
 
-namespace AdventOfCode2023.Days;
+namespace AdventOfCode._2023.Days;
 
 public class Day8 : IRiddle
 {
     public string SolveFirst()
     {
-        var input = File.ReadAllLines("Days\\Inputs\\Day8.txt");
+        var input = File.ReadAllLines("2023\\Days\\Inputs\\Day8.txt");
 
         var directions = input[0].Trim();
         var nodes = new List<Node>();
@@ -39,7 +39,7 @@ public class Day8 : IRiddle
 
     public string SolveSecond()
     {
-        var input = File.ReadAllLines("Days\\Inputs\\Day8.txt");
+        var input = File.ReadAllLines("2023\\Days\\Inputs\\Day8.txt");
 
         var directions = input[0].Trim();
         var nodes = new List<Node>();

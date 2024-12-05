@@ -1,12 +1,12 @@
-﻿using AdventOfCode2023.Days.Interfaces;
+﻿using AdventOfCode.Interfaces;
 
-namespace AdventOfCode2023.Days;
+namespace AdventOfCode._2023.Days;
 
 public class Day4 : IRiddle
 {
     public string SolveFirst()
     {
-        var input = File.ReadAllLines("Days\\Inputs\\Day4.txt");
+        var input = File.ReadAllLines("2023\\Days\\Inputs\\Day4.txt");
 
         var sum = (
             from line in input 
@@ -20,7 +20,7 @@ public class Day4 : IRiddle
 
     public string SolveSecond()
     {
-        var input = File.ReadAllLines("Days\\Inputs\\Day4.txt");
+        var input = File.ReadAllLines("2023\\Days\\Inputs\\Day4.txt");
 
         var dic = new Dictionary<int, int>();
 

@@ -1,27 +1,19 @@
-﻿using AdventOfCode2023.Days;
-using AdventOfCode2023.Days.Interfaces;
+﻿using System.Reflection;
+using AdventOfCode.Interfaces;
 
-var riddles = new List<IRiddle>
-{
-    new Day23(),
-    //new Day17(),
-    //new Day16(), // Takes to long
-    //new Day15(),
-    //new Day14(),
-    //new Day13(),
-    //new Day12(),
-    //new Day11(),
-    //new Day10(),
-    //new Day9(),
-    //new Day8(),
-    //new Day7(),
-    //new Day6(),
-    //new Day5(),
-    //new Day4(),
-    //new Day3(),
-    //new Day2(),
-    //new Day1()
-};
+const int year = 2024;
+
+var typesInNamespace = Assembly
+    .GetExecutingAssembly()
+    .GetTypes()
+    .Where(t => t.Namespace == $"AdventOfCode._{year}.Days"
+                && t is { IsClass: true, IsAbstract: false }
+                && t.Name.StartsWith("Day")
+                && int.TryParse(t.Name[3..], out _)
+                && typeof(IRiddle).IsAssignableFrom(t))
+    .OrderByDescending(t => t.Name);
+
+var riddles = typesInNamespace.Select(Activator.CreateInstance).Cast<IRiddle>().ToList();
 
 riddles.ForEach(riddle =>
 {

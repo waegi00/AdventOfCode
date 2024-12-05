@@ -1,12 +1,12 @@
-﻿using AdventOfCode2023.Days.Interfaces;
+﻿using AdventOfCode.Interfaces;
 
-namespace AdventOfCode2023.Days;
+namespace AdventOfCode._2023.Days;
 
 public class Day15 : IRiddle
 {
     public string SolveFirst()
     {
-        var input = File.ReadAllText("Days\\Inputs\\Day15.txt");
+        var input = File.ReadAllText("2023\\Days\\Inputs\\Day15.txt");
 
         var sum = 0;
 
@@ -29,7 +29,7 @@ public class Day15 : IRiddle
 
     public string SolveSecond()
     {
-        var input = File.ReadAllText("Days\\Inputs\\Day15.txt");
+        var input = File.ReadAllText("2023\\Days\\Inputs\\Day15.txt");
 
         var boxes = new List<Step>[256];
         for (var i = 0; i < 256; i++) boxes[i] = new List<Step>();

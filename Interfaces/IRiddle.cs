@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode2023.Days.Interfaces;
+﻿namespace AdventOfCode.Interfaces;
 
 public interface IRiddle
 {
