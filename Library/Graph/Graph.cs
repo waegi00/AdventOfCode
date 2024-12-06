@@ -1,5 +1,6 @@
 ﻿using System.Collections.Frozen;
 using System.Numerics;
+using AdventOfCode.Library.Array;
 
 namespace AdventOfCode.Library.Graph;
 
@@ -64,7 +65,7 @@ public class Graph<T> where T : INumber<T>, IMinMaxValue<T>
 
         if (n == 0) return T.Zero;
 
-        var permutations = GetPermutations(vertices, n);
+        var permutations = vertices.ToArray().GetPermutations(n).Select(p => p.ToArray());
 
         return permutations.Select(CalculatePathCost).Aggregate(T.MaxValue, (a, b) => a.CompareTo(b) < 0 ? a : b);
     }
@@ -80,26 +81,16 @@ public class Graph<T> where T : INumber<T>, IMinMaxValue<T>
 
         if (n == 0) return T.Zero;
 
-        var permutations = GetPermutations(vertices, n);
+        var permutations = vertices.ToArray().GetPermutations(n).Select(p => p.ToArray());
 
         return permutations.Select(CalculatePathCost).Aggregate(T.Zero, (a, b) => a.CompareTo(b) > 0 ? a : b);
     }
 
-    private static IEnumerable<List<Vertex>> GetPermutations(List<Vertex> vertices, int length)
-    {
-        if (length == 1)
-            return vertices.Select(t => new List<Vertex> { t });
-
-        return GetPermutations(vertices, length - 1)
-            .SelectMany(t => vertices.Where(e => !t.Contains(e)),
-                (t, e) => t.Concat(new[] { e }).ToList());
-    }
-
-    private T CalculatePathCost(List<Vertex> path)
+    private T CalculatePathCost(Vertex[] path)
     {
         var totalCost = T.Zero;
 
-        for (var i = 0; i < path.Count - 1; i++)
+        for (var i = 0; i < path.Length - 1; i++)
         {
             var weight = GetWeight(path[i], path[i + 1]);
             if (weight == T.Zero) return T.MaxValue;

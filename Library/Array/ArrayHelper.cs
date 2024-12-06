@@ -137,4 +137,22 @@ public static class ArrayHelper
 
         return query;
     }
+
+    /// <summary>
+    /// Returns all possible permutations of the array
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="array">The array</param>
+    /// <param name="length">Length to stop recursion</param>
+    /// <returns>IEnumerable with all possible permutations</returns>
+    public static IEnumerable<IEnumerable<T>> GetPermutations<T>(this IEnumerable<T> array, int length)
+    {
+        if (length == 1)
+            return array.Select(item => new[] { item });
+
+        var enumerable = array as T[] ?? array.ToArray();
+        return GetPermutations(enumerable, length - 1)
+            .SelectMany(items => enumerable.Where(item => !items.Contains(item)),
+                (items, item) => items.Concat(new[] { item }));
+    }
 }
