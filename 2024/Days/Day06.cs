@@ -73,27 +73,4 @@ public class Day06 : IRiddle
 
         return input.FindAll('X').ToList();
     }
-
-    static bool AreCharArraysEqual(char[][] array1, char[][] array2)
-    {
-        // Check if both arrays have the same dimensions
-        if (array1.Length != array2.Length)
-            return false;
-
-        for (int i = 0; i < array1.Length; i++)
-        {
-            // Check if inner arrays have the same length
-            if (array1[i].Length != array2[i].Length)
-                return false;
-
-            for (int j = 0; j < array1[i].Length; j++)
-            {
-                // Compare individual elements
-                if (array1[i][j] != array2[i][j])
-                    return false;
-            }
-        }
-
-        return true; // All checks passed, arrays are equal
-    }
 }
