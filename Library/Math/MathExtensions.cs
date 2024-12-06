@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdventOfCode.Library.Math
+namespace AdventOfCode.Library.Math;
+
+internal class MathExtensions
 {
-    internal class MathExtensions
-    {
-    }
 }

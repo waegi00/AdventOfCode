@@ -2,52 +2,51 @@
 using AdventOfCode.Interfaces;
 using AdventOfCode.Library.Input;
 
-namespace AdventOfCode._2015.Days
+namespace AdventOfCode._2015.Days;
+
+public class Day04 : IRiddle
 {
-    public class Day04 : IRiddle
+    public string SolveFirst()
     {
-        public string SolveFirst()
+        var key = this.InputToText();
+
+        using var md5 = MD5.Create();
+
+        var i = 0;
+        while (++i > 0)
         {
-            var key = this.InputToText();
+            var inputBytes = System.Text.Encoding.ASCII.GetBytes(key + i);
+            var hashBytes = md5.ComputeHash(inputBytes);
+            var hashString = Convert.ToHexString(hashBytes);
 
-            using var md5 = MD5.Create();
-
-            var i = 0;
-            while (++i > 0)
+            if (hashString.StartsWith("00000"))
             {
-                var inputBytes = System.Text.Encoding.ASCII.GetBytes(key + i);
-                var hashBytes = md5.ComputeHash(inputBytes);
-                var hashString = Convert.ToHexString(hashBytes);
-
-                if (hashString.StartsWith("00000"))
-                {
-                    return i.ToString();
-                }
+                return i.ToString();
             }
-
-            return "";
         }
 
-        public string SolveSecond()
+        return "";
+    }
+
+    public string SolveSecond()
+    {
+        var key = this.InputToText();
+
+        using var md5 = MD5.Create();
+
+        var i = 0;
+        while (++i > 0)
         {
-            var key = this.InputToText();
+            var inputBytes = System.Text.Encoding.ASCII.GetBytes(key + i);
+            var hashBytes = md5.ComputeHash(inputBytes);
+            var hashString = Convert.ToHexString(hashBytes);
 
-            using var md5 = MD5.Create();
-
-            var i = 0;
-            while (++i > 0)
+            if (hashString.StartsWith("000000"))
             {
-                var inputBytes = System.Text.Encoding.ASCII.GetBytes(key + i);
-                var hashBytes = md5.ComputeHash(inputBytes);
-                var hashString = Convert.ToHexString(hashBytes);
-
-                if (hashString.StartsWith("000000"))
-                {
-                    return i.ToString();
-                }
+                return i.ToString();
             }
-
-            return "";
         }
+
+        return "";
     }
 }

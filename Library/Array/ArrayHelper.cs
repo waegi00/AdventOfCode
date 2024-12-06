@@ -3,6 +3,24 @@
 public static class ArrayHelper
 {
     /// <summary>
+    /// Prints the array
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="array">2-D array</param>
+    public static void Print<T>(this T[][] array)
+    {
+        foreach (var row in array)
+        {
+            foreach (var cell in row)
+            {
+                Console.Write(cell);
+            }
+
+            Console.WriteLine();
+        }
+    }
+
+    /// <summary>
     /// Returns whether a position is valid in a given array or not
     /// </summary>
     /// <param name="array">2-D array</param>
@@ -63,6 +81,16 @@ public static class ArrayHelper
         }
     }
 
+    /// <summary>
+    /// Updates all values in a given range
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="array">2-D array</param>
+    /// <param name="i">start x-position of range</param>
+    /// <param name="j">start y-position of range</param>
+    /// <param name="i2">end x-position of range</param>
+    /// <param name="j2">end y-position of range</param>
+    /// <param name="f">Function to apply to the values</param>
     public static void SetValues<T>(this T[][] array, int i, int j, int i2, int j2, Func<T, T> f)
     {
         if (!IsValidPosition(array, i, j) || !IsValidPosition(array, i2, j2)) return;
@@ -74,5 +102,39 @@ public static class ArrayHelper
                 array[row][col] = f(array[row][col]);
             }
         }
+    }
+
+    /// <summary>
+    /// Returns the position of first occurrence or the types default value
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="array">The array</param>
+    /// <param name="target">Value to find</param>
+    /// <returns>(x-position, y-position) of first match</returns>
+    public static (int i, int j) FindFirst<T>(this T[][] array, T target)
+    {
+        var query = array
+            .SelectMany((row, i) => row.Select((v, j) => new { v, i, j }))
+            .First(item => item.v!.Equals(target));
+
+        return (query.i, query.j);
+    }
+
+
+    /// <summary>
+    /// Returns the position of all occurrences or the types default value
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="array">The array</param>
+    /// <param name="target">Value to find</param>
+    /// <returns>IEnumerable with (x-position, y-position) of the matches</returns>
+    public static IEnumerable<(int i, int j)> FindAll<T>(this T[][] array, T target)
+    {
+        var query = array
+            .SelectMany((row, i) => row.Select((v, j) => new { v, i, j }))
+            .Where(item => item.v!.Equals(target))
+            .Select(item => (item.i, item.j));
+
+        return query;
     }
 }
