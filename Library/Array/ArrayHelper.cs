@@ -155,4 +155,20 @@ public static class ArrayHelper
             .SelectMany(items => enumerable.Where(item => !items.Contains(item)),
                 (items, item) => items.Concat(new[] { item }));
     }
+
+    /// <summary>
+    /// Generates all possible pairs of an array
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="array">The array</param>
+    /// <returns>IEnumerable with all pairs</returns>
+    public static IEnumerable<(T First, T Second)> Pairs<T>(this IEnumerable<T> array)
+    {
+        var enumerable = array as T[] ?? array.ToArray();
+
+        var pairs = enumerable
+            .SelectMany((x, i) => enumerable.Skip(i + 1), (x, y) => (x, y));
+
+        return pairs;
+    }
 }
