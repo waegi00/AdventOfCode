@@ -117,8 +117,6 @@ public class Day09 : IRiddle
             ns.RemoveLast();
         }
 
-        Console.WriteLine(string.Join("", nums.Select(n => n == -1 ? "0" : n.ToString())));
-
         return nums.Select(n => n == -1 ? 0 : n)
             .Select((n, i) => (n, i))
             .Sum(x => x.n * x.i)
