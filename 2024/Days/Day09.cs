@@ -1,6 +1,5 @@
 ﻿using AdventOfCode.Interfaces;
 using AdventOfCode.Library.Input;
-using System.Collections.Generic;
 
 namespace AdventOfCode._2024.Days;
 
