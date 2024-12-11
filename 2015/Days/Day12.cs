@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace AdventOfCode._2015.Days;
 
-internal class Day12 : IRiddle
+public class Day12 : IRiddle
 {
     public string SolveFirst()
     {

@@ -4,7 +4,7 @@ using AdventOfCode.Library.Input;
 
 namespace AdventOfCode._2015.Days;
 
-internal class Day13 : IRiddle
+public class Day13 : IRiddle
 {
     public string SolveFirst()
     {

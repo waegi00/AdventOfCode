@@ -153,7 +153,7 @@ public static class ArrayHelper
         var enumerable = array as T[] ?? array.ToArray();
         return GetPermutations(enumerable, length - 1)
             .SelectMany(items => enumerable.Where(item => !items.Contains(item)),
-                (items, item) => items.Concat(new[] { item }));
+                (items, item) => items.Concat([item]));
     }
 
     /// <summary>
