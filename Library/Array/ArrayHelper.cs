@@ -41,10 +41,11 @@ public static class ArrayHelper
     /// <param name="includeHorizontal">whether to include horizontal neighbours or not</param>
     /// <param name="includeVertical">whether to include vertical neighbours or not</param>
     /// <param name="includeDiagonal">whether to include diagonal neighbours or not</param>
+    /// <param name="includeInvalid">whether to include invalid positions</param>
     /// <returns>(cell value, (x-pos, y-pos))</returns>
-    public static IEnumerable<(T, (int, int))> Neighbours<T>(this T[][] array, int i, int j, bool includeHorizontal = true, bool includeVertical = true, bool includeDiagonal = true)
+    public static IEnumerable<(T?, (int, int))> Neighbours<T>(this T[][] array, int i, int j, bool includeHorizontal = true, bool includeVertical = true, bool includeDiagonal = true, bool includeInvalid = false)
     {
-        if (!IsValidPosition(array, i, j))
+        if (!includeInvalid && !IsValidPosition(array, i, j))
         {
             yield break;
         }
@@ -72,12 +73,14 @@ public static class ArrayHelper
             var ni = i + di;
             var nj = j + dj;
 
-            if (!IsValidPosition(array, ni, nj))
+            if (IsValidPosition(array, ni, nj))
             {
-                continue;
+                yield return (array[ni][nj], (ni, nj));
             }
-
-            yield return (array[ni][nj], (ni, nj));
+            else if (includeInvalid)
+            {
+                yield return (default, (ni, nj));
+            }
         }
     }
 
