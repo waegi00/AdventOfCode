@@ -9,11 +9,9 @@ public class Day25 : IRiddle
     {
         const int row = 2981;
         const int column = 3075;
-        var grid = new BigInteger[row * 2, column * 2];
-        grid[0, 0] = 20151125;
 
         var n = 2;
-        var last = grid[0, 0];
+        var last = new BigInteger(20151125);
         while (true)
         {
             var i = n - 1;
