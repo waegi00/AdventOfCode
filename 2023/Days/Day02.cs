@@ -23,7 +23,7 @@ public class Day02 : IRiddle
         public int Id { get; set; }
         public bool CanHappen => Sets.All(s => s is { Red: <= 12, Green: <= 13, Blue: <= 14 });
         public int MaxColorMultiplied => Sets.Max(s => s.Red) * Sets.Max(s => s.Blue) * Sets.Max(s => s.Green);
-        public List<Set> Sets { get; set; } = new List<Set>();
+        public List<Set> Sets { get; set; } = new();
     }
 
     private class Set

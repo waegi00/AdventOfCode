@@ -19,7 +19,7 @@ public class Day16 : IRiddle
         }
 
         var energized = new List<Beam>();
-        var beams = new List<Beam> { new Beam(0, 0, Direction.Rightward) };
+        var beams = new List<Beam> { new(0, 0, Direction.Rightward) };
 
         while (beams.Count != 0)
         {
@@ -122,7 +122,7 @@ public class Day16 : IRiddle
                 var energized = new List<Beam>();
                 var beams = new List<Beam>
                 {
-                    new Beam(
+                    new(
                         dir == Direction.Rightward || dir == Direction.Leftward ? k : dir == Direction.Upward ? matrix.GetLength(0) - 1 : 0,
                         dir == Direction.Downward || dir == Direction.Upward ? k : dir == Direction.Leftward ? matrix.GetLength(1) - 1 : 0,
                         dir)

@@ -50,7 +50,7 @@ public class Day05 : IRiddle
 
     private class Map
     {
-        public List<Plan> Plans { get; set; } = new List<Plan>();
+        public List<Plan> Plans { get; set; } = new();
 
         public long GetValue(long source)
         {

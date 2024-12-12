@@ -1,5 +1,4 @@
-﻿using System.Xml;
-using AdventOfCode.Interfaces;
+﻿using AdventOfCode.Interfaces;
 using AdventOfCode.Library.Input;
 
 namespace AdventOfCode._2015.Days;

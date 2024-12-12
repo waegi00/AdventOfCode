@@ -36,7 +36,7 @@ public class Day09 : IRiddle
 
     private class History
     {
-        public List<int> Nums { get; set; } = new List<int>();
+        public List<int> Nums { get; set; } = new();
 
         public int CalculateNextNum(List<int> nums)
         {

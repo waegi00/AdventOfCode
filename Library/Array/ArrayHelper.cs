@@ -1,4 +1,6 @@
-﻿namespace AdventOfCode.Library.Array;
+﻿using System.Numerics;
+
+namespace AdventOfCode.Library.Array;
 
 public static class ArrayHelper
 {
@@ -173,5 +175,36 @@ public static class ArrayHelper
             .SelectMany((x, i) => enumerable.Skip(i + 1), (x, y) => (x, y));
 
         return pairs;
+    }
+
+
+    /// <summary>
+    /// Generates all subsets of an array, including itself
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="array">The array</param>
+    /// <returns>IEnumerable of all subsets</returns>
+    public static IEnumerable<IEnumerable<T>> Subsets<T>(this IEnumerable<T> array)
+    {
+        var enumerable = array as T[] ?? array.ToArray();
+
+        var subsetCount = (int)System.Math.Pow(2, enumerable.Length);
+
+        for (var i = 0; i < subsetCount; i++)
+        {
+            var subset = enumerable.Where((_, j) => (i & (1 << j)) != 0);
+
+            yield return subset;
+        }
+    }
+
+    /// <summary>
+    /// Returns the product of the numbers in the array
+    /// </summary>
+    /// <param name="numbers">The array</param>
+    /// <returns>Product of all numbers in the array</returns>
+    public static T Product<T>(this IEnumerable<T> numbers) where T : INumber<T>
+    {
+        return numbers.Aggregate(T.One, (product, num) => product * num);
     }
 }
