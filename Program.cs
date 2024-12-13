@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using AdventOfCode.Interfaces;
 
-const int year = 2015;
+const int year = 2024;
 const bool all = false;
 
 var typesInNamespace = Assembly
