@@ -51,7 +51,7 @@ public class Day15 : IRiddle
         return max.ToString();
     }
 
-    private record Ingredient(int capacity, int durability, int flavor, int texture, int calories);
+    private record Ingredient(int Capacity, int Durability, int Flavor, int Texture, int Calories);
 
     private static (long score, long calories) Score(int[] amounts, List<Ingredient> ingredients)
     {
@@ -63,11 +63,11 @@ public class Day15 : IRiddle
 
         foreach (var (ingredient, amount) in ingredients.Zip(amounts))
         {
-            capacity += ingredient.capacity * amount;
-            durability += ingredient.durability * amount;
-            flavor += ingredient.flavor * amount;
-            texture += ingredient.texture * amount;
-            calories += ingredient.calories * amount;
+            capacity += ingredient.Capacity * amount;
+            durability += ingredient.Durability * amount;
+            flavor += ingredient.Flavor * amount;
+            texture += ingredient.Texture * amount;
+            calories += ingredient.Calories * amount;
         }
 
         return (Math.Max(capacity, 0) * Math.Max(durability, 0) * Math.Max(flavor, 0) * Math.Max(texture, 0), calories);

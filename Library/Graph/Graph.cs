@@ -23,8 +23,8 @@ public class Graph<T> where T : INumber<T>, IMinMaxValue<T>
     /// <returns>Weight between vertices if it exists, else 0</returns>
     public T GetWeight(Vertex from, Vertex to, bool directed = false)
     {
-        var edge = _edges.FirstOrDefault(e => e.from == from && e.to == to || (!directed && e.to == from && e.from == to));
-        return edge != null ? edge.weight : T.Zero;
+        var edge = _edges.FirstOrDefault(e => e.From == from && e.To == to || (!directed && e.To == from && e.From == to));
+        return edge != null ? edge.Weight : T.Zero;
     }
 
     /// <summary>
@@ -49,7 +49,7 @@ public class Graph<T> where T : INumber<T>, IMinMaxValue<T>
         {
             if (_edges.Add(edge))
             {
-                AddVertices(edge.from, edge.to);
+                AddVertices(edge.From, edge.To);
             }
         }
     }

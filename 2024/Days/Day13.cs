@@ -1,5 +1,4 @@
-﻿using System.Numerics;
-using AdventOfCode.Interfaces;
+﻿using AdventOfCode.Interfaces;
 using AdventOfCode.Library.Input;
 
 namespace AdventOfCode._2024.Days;

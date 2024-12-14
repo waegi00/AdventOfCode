@@ -6,10 +6,10 @@ namespace AdventOfCode.Library.Math.Geometry;
 /// Generic class for cuboids 
 /// </summary>
 /// <typeparam name="T">number type</typeparam>
-/// <param name="length"></param>
-/// <param name="width"></param>
-/// <param name="height"></param>
-public record Cuboid<T>(T length, T width, T height) where T : INumber<T>
+/// <param name="Length"></param>
+/// <param name="Width"></param>
+/// <param name="Height"></param>
+public record Cuboid<T>(T Length, T Width, T Height) where T : INumber<T>
 {
     /// <summary>
     /// Calculates the surface area of the cuboid
@@ -17,7 +17,7 @@ public record Cuboid<T>(T length, T width, T height) where T : INumber<T>
     /// <returns>2 * (length * width + length * height + width * height)</returns>
     public T Surface()
     {
-        dynamic l = length, w = width, h = height;
+        dynamic l = Length, w = Width, h = Height;
         return 2 * (l * w + l * h + w * h);
     }
 
@@ -27,6 +27,6 @@ public record Cuboid<T>(T length, T width, T height) where T : INumber<T>
     /// <returns>(length * width, length * height, width * height)</returns>
     public (T, T, T) Sides()
     {
-        return (length * width, length * height, width * height);
+        return (Length * Width, Length * Height, Width * Height);
     }
 }

@@ -35,14 +35,14 @@ public class Day11 : IRiddle
         return input;
     }
 
-    private static bool ValidatePassword(string Password)
+    private static bool ValidatePassword(string password)
     {
-        if (Password.Contains('i') || Password.Contains('l') || Password.Contains('o')) return false;
-        if (!Regex.IsMatch(Password, @".*(.)\1+.*(.)\2+.*")) return false;
+        if (password.Contains('i') || password.Contains('l') || password.Contains('o')) return false;
+        if (!Regex.IsMatch(password, @".*(.)\1+.*(.)\2+.*")) return false;
 
-        for (var i = 0; i < Password.Length - 2; i++)
+        for (var i = 0; i < password.Length - 2; i++)
         {
-            if (Password[i + 2] == Password[i + 1] + 1 && Password[i + 1] == Password[i] + 1)
+            if (password[i + 2] == password[i + 1] + 1 && password[i + 1] == password[i] + 1)
             {
                 return true;
             }

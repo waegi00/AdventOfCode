@@ -6,12 +6,12 @@ namespace AdventOfCode._2015.Days;
 
 public class Day07 : IRiddle
 {
-    private readonly Dictionary<string, int> cache = new();
+    private readonly Dictionary<string, int> _cache = new();
 
     public string SolveFirst()
     {
         var input = this.InputToLines();
-        cache.Clear();
+        _cache.Clear();
 
         var instructions = new Dictionary<string, string>();
 
@@ -27,7 +27,7 @@ public class Day07 : IRiddle
     public string SolveSecond()
     {
         var input = this.InputToLines();
-        cache.Clear();
+        _cache.Clear();
 
         var instructions = new Dictionary<string, string>();
 
@@ -38,22 +38,22 @@ public class Day07 : IRiddle
         }
 
         var a = Evaluate("a", instructions);
-        cache.Clear();
-        cache.Add("b", a);
+        _cache.Clear();
+        _cache.Add("b", a);
 
         return Evaluate("a", instructions).ToString();
     }
 
     private int Evaluate(string wire, Dictionary<string, string> instructions)
     {
-        if (cache.TryGetValue(wire, out var cacheValue))
+        if (_cache.TryGetValue(wire, out var cacheValue))
         {
             return cacheValue;
         }
 
         if (int.TryParse(wire, out var wireValue))
         {
-            cache[wire] = wireValue;
+            _cache[wire] = wireValue;
             return wireValue;
         }
 
@@ -61,7 +61,7 @@ public class Day07 : IRiddle
 
         if (int.TryParse(instruction, out var instructionValue))
         {
-            cache[wire] = instructionValue;
+            _cache[wire] = instructionValue;
             return instructionValue;
         }
 
@@ -96,7 +96,7 @@ public class Day07 : IRiddle
             value = Evaluate(splits[0], instructions) >> int.Parse(splits[1]);
         }
 
-        cache[wire] = value;
+        _cache[wire] = value;
         return value;
     }
 }

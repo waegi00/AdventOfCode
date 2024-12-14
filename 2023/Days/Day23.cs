@@ -4,20 +4,20 @@ namespace AdventOfCode._2023.Days;
 
 public class Day23 : IRiddle
 {
-    private const char _path = '.';
-    private const char _visited = 'O';
-    private const char _start = 'S';
-    private const char _slopeUp = '^';
-    private const char _slopeLeft = '<';
-    private const char _slopeDown = 'v';
-    private const char _slopeRight = '>';
+    private const char Path = '.';
+    private const char Visited = 'O';
+    private const char Start = 'S';
+    private const char SlopeUp = '^';
+    private const char SlopeLeft = '<';
+    private const char SlopeDown = 'v';
+    private const char SlopeRight = '>';
 
     public string SolveFirst()
     {
         var input = File.ReadAllLines("2023\\Days\\Inputs\\Day23.txt").Select(x => x.ToCharArray()).ToArray();
 
-        var y = Array.FindIndex(input[0], x => x == _path);
-        input[0][y] = _start;
+        var y = Array.FindIndex(input[0], x => x == Path);
+        input[0][y] = Start;
 
         return PathLength1(input, 1, y).Max().ToString();
     }
@@ -36,31 +36,31 @@ public class Day23 : IRiddle
     // Assuming slopes cant be on the border
     public static List<int> PathLength1(char[][] arr, int x, int y)
     {
-        arr[x][y] = _visited;
+        arr[x][y] = Visited;
 
         var wayLengths = new List<int>();
 
         if (x == arr.Length - 1)
         {
-            wayLengths.Add(arr.Sum(a => a.Count(x => x == _visited)));
+            wayLengths.Add(arr.Sum(a => a.Count(x => x == Visited)));
         }
 
-        if (x > 0 && arr[x - 1][y] is _path or _slopeUp)
+        if (x > 0 && arr[x - 1][y] is Path or SlopeUp)
         {
             wayLengths.AddRange(PathLength1(arr.Select(a => a.ToArray()).ToArray(), x - 1, y));
         }
 
-        if (y > 0 && arr[x][y - 1] is _path or _slopeLeft)
+        if (y > 0 && arr[x][y - 1] is Path or SlopeLeft)
         {
             wayLengths.AddRange(PathLength1(arr.Select(a => a.ToArray()).ToArray(), x, y - 1));
         }
 
-        if (x < arr.Length - 1 && arr[x + 1][y] is _path or _slopeDown)
+        if (x < arr.Length - 1 && arr[x + 1][y] is Path or SlopeDown)
         {
             wayLengths.AddRange(PathLength1(arr.Select(a => a.ToArray()).ToArray(), x + 1, y));
         }
 
-        if (y < arr[x].Length - 1 && arr[x][y + 1] is _path or _slopeRight)
+        if (y < arr[x].Length - 1 && arr[x][y + 1] is Path or SlopeRight)
         {
             wayLengths.AddRange(PathLength1(arr.Select(a => a.ToArray()).ToArray(), x, y + 1));
         }

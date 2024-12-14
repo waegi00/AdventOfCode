@@ -5,7 +5,7 @@ namespace AdventOfCode._2015.Days;
 
 public class Day22 : IRiddle
 {
-    private static readonly Dictionary<string, int> spellList = new()
+    private static readonly Dictionary<string, int> SpellList = new()
     {
         { "Magic Missile", 53 },
         { "Drain", 73 },
@@ -17,30 +17,30 @@ public class Day22 : IRiddle
     public string SolveFirst()
     {
         var input = this.InputToLines().Select(x => int.Parse(x.Split(": ")[1])).ToList();
-        var (bossHP, bossDamage) = (input[0], input[1]);
+        var (bossHp, bossDamage) = (input[0], input[1]);
 
         var min = new State(int.MaxValue, 0, 0, 0, [], false, []);
 
         var queue = new Queue<State>();
-        queue.Enqueue(new State(0, bossHP, 50, 500, [], true, []));
+        queue.Enqueue(new State(0, bossHp, 50, 500, [], true, []));
         while (queue.Count > 0)
         {
             var curr = queue.Dequeue();
 
-            if (curr.manaSpent >= min.manaSpent) continue;
-            if (curr.bossHp <= 0)
+            if (curr.ManaSpent >= min.ManaSpent) continue;
+            if (curr.BossHp <= 0)
             {
                 min = curr;
                 continue;
             }
-            if (curr.hp <= 0) continue;
+            if (curr.Hp <= 0) continue;
 
-            if (curr.playersTurn)
+            if (curr.PlayersTurn)
             {
-                foreach (var spell in spellList)
+                foreach (var spell in SpellList)
                 {
-                    if (spell.Value > curr.mana) continue;
-                    if (curr.effects.ContainsKey(spell.Key)) continue;
+                    if (spell.Value > curr.Mana) continue;
+                    if (curr.Effects.ContainsKey(spell.Key)) continue;
 
                     queue.Enqueue(curr.Transfer(spell.Key, 0));
                 }
@@ -51,41 +51,41 @@ public class Day22 : IRiddle
             }
         }
 
-        return min.manaSpent.ToString();
+        return min.ManaSpent.ToString();
     }
 
     public string SolveSecond()
     {
         var input = this.InputToLines().Select(x => int.Parse(x.Split(": ")[1])).ToList();
-        var (bossHP, bossDamage) = (input[0], input[1]);
+        var (bossHp, bossDamage) = (input[0], input[1]);
 
         var min = new State(int.MaxValue, 0, 0, 0, [], false, []);
 
         var queue = new Queue<State>();
-        queue.Enqueue(new State(0, bossHP, 50, 500, [], true, []));
+        queue.Enqueue(new State(0, bossHp, 50, 500, [], true, []));
         while (queue.Count > 0)
         {
             var curr = queue.Dequeue();
 
-            if (curr.manaSpent >= min.manaSpent) continue;
-            if (curr.bossHp <= 0)
+            if (curr.ManaSpent >= min.ManaSpent) continue;
+            if (curr.BossHp <= 0)
             {
                 min = curr;
                 continue;
             }
-            if (curr.playersTurn)
+            if (curr.PlayersTurn)
             {
-                var newHp = curr.hp - 1;
-                curr = curr with { hp = newHp };
+                var newHp = curr.Hp - 1;
+                curr = curr with { Hp = newHp };
             }
-            if (curr.hp <= 0) continue;
+            if (curr.Hp <= 0) continue;
 
-            if (curr.playersTurn)
+            if (curr.PlayersTurn)
             {
-                foreach (var spell in spellList)
+                foreach (var spell in SpellList)
                 {
-                    if (spell.Value > curr.mana) continue;
-                    if (curr.effects.ContainsKey(spell.Key) && curr.effects[spell.Key] > 1) continue;
+                    if (spell.Value > curr.Mana) continue;
+                    if (curr.Effects.ContainsKey(spell.Key) && curr.Effects[spell.Key] > 1) continue;
 
                     queue.Enqueue(curr.Transfer(spell.Key, 0));
                 }
@@ -96,19 +96,19 @@ public class Day22 : IRiddle
             }
         }
 
-        return min.manaSpent.ToString();
+        return min.ManaSpent.ToString();
     }
 
-    private record State(int manaSpent, int bossHp, int hp, int mana, Dictionary<string, int> effects, bool playersTurn, List<string> spells)
+    private record State(int ManaSpent, int BossHp, int Hp, int Mana, Dictionary<string, int> Effects, bool PlayersTurn, List<string> Spells)
     {
         public State Transfer(string spell, int bossDamage)
         {
-            var cost = spell == string.Empty ? 0 : spellList[spell];
-            var newManaSpent = manaSpent + cost;
-            var newBossHp = bossHp;
-            var newHp = hp;
-            var newMana = mana - cost;
-            var newSpells = new List<string>(spells);
+            var cost = spell == string.Empty ? 0 : SpellList[spell];
+            var newManaSpent = ManaSpent + cost;
+            var newBossHp = BossHp;
+            var newHp = Hp;
+            var newMana = Mana - cost;
+            var newSpells = new List<string>(Spells);
             var hasShield = false;
             if (spell != string.Empty)
             {
@@ -116,7 +116,7 @@ public class Day22 : IRiddle
             }
             var newEffects = new Dictionary<string, int>();
 
-            foreach (var effect in effects)
+            foreach (var effect in Effects)
             {
                 switch (effect.Key)
                 {
@@ -137,10 +137,10 @@ public class Day22 : IRiddle
                 }
             }
 
-            if (!playersTurn)
+            if (!PlayersTurn)
             {
                 newHp -= hasShield ? Math.Max(1, bossDamage - 7) : bossDamage;
-                return new State(manaSpent: manaSpent, bossHp: newBossHp, hp: newHp, mana: newMana, effects: newEffects, playersTurn: true, spells: newSpells);
+                return new State(ManaSpent: ManaSpent, BossHp: newBossHp, Hp: newHp, Mana: newMana, Effects: newEffects, PlayersTurn: true, Spells: newSpells);
             }
 
             switch (spell)
@@ -163,7 +163,7 @@ public class Day22 : IRiddle
                     break;
             }
 
-            return new State(manaSpent: newManaSpent, bossHp: newBossHp, hp: newHp, mana: newMana, effects: newEffects, playersTurn: false, spells: newSpells);
+            return new State(ManaSpent: newManaSpent, BossHp: newBossHp, Hp: newHp, Mana: newMana, Effects: newEffects, PlayersTurn: false, Spells: newSpells);
         }
     }
 }
