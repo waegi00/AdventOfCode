@@ -9,7 +9,7 @@ public static class ArrayHelper
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="array">2-D array</param>
-    public static void Print<T>(this T[][] array)
+    public static void Print<T>(this IEnumerable<IEnumerable<T>> array)
     {
         foreach (var row in array)
         {
@@ -206,5 +206,51 @@ public static class ArrayHelper
     public static T Product<T>(this IEnumerable<T> numbers) where T : INumber<T>
     {
         return numbers.Aggregate(T.One, (product, num) => product * num);
+    }
+
+    /// <summary>
+    /// Rotates a row by n elements
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="array">The array</param>
+    /// <param name="row">row index</param>
+    /// <param name="n">amount of cells to rotate</param>
+    public static void RotateRow<T>(this T[][] array, int row, int n)
+    {
+        if (n == 0 || !array.IsValidPosition(row, 0))
+        {
+            return;
+        }
+
+        n %= array[row].Length;
+
+        var a = array[row][..^n].ToList();
+        var wrap = array[row][^n..].Concat(a).ToArray();
+        array[row] = wrap;
+    }
+
+    /// <summary>
+    /// Rotates a col by n elements
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="array">The array</param>
+    /// <param name="col">col index</param>
+    /// <param name="n">amount of cells to rotate</param>
+    public static void RotateCol<T>(this T[][] array, int col, int n)
+    {
+        if (n == 0 || Enumerable.Range(0, array.Length).Any(x => !array.IsValidPosition(x, col)))
+        {
+            return;
+        }
+
+        n %= array.Length;
+
+        var a = array[..^n].Select(r => r[col]);
+        var wrap = array[^n..].Select(r => r[col]);
+        var newCol = wrap.Concat(a).ToArray();
+        for (var i = 0; i < array.Length; i++)
+        {
+            array[i][col] = newCol[i];
+        }
     }
 }
