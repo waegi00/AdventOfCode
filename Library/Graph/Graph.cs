@@ -57,8 +57,9 @@ public class Graph<T> where T : INumber<T>, IMinMaxValue<T>
     /// <summary>
     /// Calculates the shortest path that visits all vertices using brute force
     /// </summary>
+    /// <param name="isConnectedCircle">Whether to connect back to start or not</param>
     /// <returns>Sum of weights of the shortest path</returns>
-    public T ShortestPath()
+    public T ShortestPath(bool isConnectedCircle = false)
     {
         var vertices = _vertices.ToList();
         var n = vertices.Count;
@@ -67,7 +68,27 @@ public class Graph<T> where T : INumber<T>, IMinMaxValue<T>
 
         var permutations = vertices.ToArray().GetPermutations(n).Select(p => p.ToArray());
 
-        return permutations.Select(CalculatePathCost).Aggregate(T.MaxValue, (a, b) => a.CompareTo(b) < 0 ? a : b);
+        return permutations.Select(x => isConnectedCircle ? CalculatePathCostAsConnectedCircle(x) : CalculatePathCost(x)).Aggregate(T.MaxValue, (a, b) => a.CompareTo(b) < 0 ? a : b);
+    }
+
+    /// <summary>
+    /// Calculates the shortest path that visits all vertices using brute force, starting at vertex 'start'
+    /// </summary>
+    /// <param name="start">Start vertex</param>
+    /// <param name="isConnectedCircle">Whether to connect back to start or not</param>
+    /// <returns>Sum of weights of the shortest path</returns>
+    public T ShortestPath(Vertex start, bool isConnectedCircle = false)
+    {
+        var vertices = _vertices.ToList();
+        vertices.Remove(start);
+        var n = vertices.Count;
+
+        if (n == 0) return T.Zero;
+
+        var permutations = vertices.GetPermutations(n)
+            .Select(p => p.Prepend(start).ToArray()).ToArray();
+
+        return permutations.Select(x => isConnectedCircle ? CalculatePathCostAsConnectedCircle(x) : CalculatePathCost(x)).Aggregate(T.MaxValue, (a, b) => a.CompareTo(b) < 0 ? a : b);
     }
 
     /// <summary>
@@ -98,6 +119,13 @@ public class Graph<T> where T : INumber<T>, IMinMaxValue<T>
         }
 
         return totalCost;
+    }
+
+    private T CalculatePathCostAsConnectedCircle(Vertex[] path)
+    {
+        var weight = GetWeight(path[^1], path[0]);
+        var length = CalculatePathCost(path);
+        return weight == T.Zero || length == T.MaxValue ? T.MaxValue : length + weight;
     }
 
     private static T Add(T a, T b)

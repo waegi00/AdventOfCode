@@ -21,7 +21,8 @@ public class Day15 : IRiddle
                 '^' => (-1, 0),
                 '>' => (0, 1),
                 'v' => (1, 0),
-                '<' => (0, -1)
+                '<' => (0, -1),
+                _ => throw new ArgumentOutOfRangeException()
             };
 
             var n = 1;
@@ -82,7 +83,8 @@ public class Day15 : IRiddle
                 '^' => (-1, 0),
                 '>' => (0, 1),
                 'v' => (1, 0),
-                '<' => (0, -1)
+                '<' => (0, -1),
+                _ => throw new ArgumentOutOfRangeException()
             };
 
             if (dx == 0)

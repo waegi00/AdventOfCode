@@ -13,7 +13,7 @@ public class Day08 : IRiddle
 
         for (var i = 2; i < input.Length; i++)
         {
-            nodes.Add(new Node { Name = input[i].Split('=')[0].Trim() });
+            nodes.Add(new Node(input[i].Split('=')[0].Trim()));
         }
 
         for (var i = 2; i < input.Length; i++)
@@ -27,7 +27,7 @@ public class Day08 : IRiddle
         long steps = 0;
         var index = 0;
         var currentNode = nodes.FirstOrDefault(x => x.Name == "AAA")!;
-        while (currentNode.Name != "ZZZ")
+        while (currentNode!.Name != "ZZZ")
         {
             currentNode = directions[index] == 'R' ? currentNode.Right : currentNode.Left;
             index++;
@@ -46,7 +46,7 @@ public class Day08 : IRiddle
 
         for (var i = 2; i < input.Length; i++)
         {
-            nodes.Add(new Node { Name = input[i].Split('=')[0].Trim() });
+            nodes.Add(new Node(input[i].Split('=')[0].Trim()));
         }
 
         for (var i = 2; i < input.Length; i++)
@@ -65,7 +65,7 @@ public class Day08 : IRiddle
             var currentNode = c;
             long steps = 0;
             var index = 0;
-            while (!currentNode.Name.EndsWith('Z'))
+            while (!currentNode!.Name.EndsWith('Z'))
             {
                 currentNode = directions[index] == 'R' ? currentNode.Right : currentNode.Left;
                 index++;
@@ -85,15 +85,15 @@ public class Day08 : IRiddle
         return val.ToString();
     }
 
-    private class Node
+    private class Node(string name)
     {
-        public string Name { get; set; }
-        public Node Left { get; set; }
-        public Node Right { get; set; }
+        public string Name { get; init; } = name;
+        public Node? Left { get; set; }
+        public Node? Right { get; set; }
     }
 
     // Greatest common divisor
-    private long Gcd(long a, long b)
+    private static long Gcd(long a, long b)
     {
         while (a != b)
         {
@@ -110,8 +110,8 @@ public class Day08 : IRiddle
         return a;
     }
 
-    // LEast common multiple
-    private long Lcm(long a, long b)
+    // Least common multiple
+    private static long Lcm(long a, long b)
     {
         return Math.Abs(a * b) / Gcd(a, b);
     }
