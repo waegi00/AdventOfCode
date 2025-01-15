@@ -3,7 +3,6 @@ using AdventOfCode.Library.Input;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using AdventOfCode.Library.Char;
 
 namespace AdventOfCode._2016.Days;
 

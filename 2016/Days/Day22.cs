@@ -1,6 +1,5 @@
 ﻿using AdventOfCode.Interfaces;
 using AdventOfCode.Library.Input;
-using System.Xml.Linq;
 
 namespace AdventOfCode._2016.Days;
 
