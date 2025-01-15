@@ -4,6 +4,10 @@ namespace AdventOfCode.Library.String;
 
 public static class StringHelper
 {
+    public static string Join<T>(this string str, IEnumerable<T> enumerable)
+    {
+        return string.Join(str, enumerable);
+    }
     public static char[][] ToCharArray(this string[] array)
     {
         return array.Select(x => x.ToCharArray()).ToArray();

@@ -253,4 +253,25 @@ public static class ArrayHelper
             array[i][col] = newCol[i];
         }
     }
+
+    /// <summary>
+    /// Finds the index of the max value in the array
+    /// </summary>
+    /// <param name="array">The array</param>
+    /// <returns>Returns index of maximal value (smallest index if multiple maximas)</returns>
+    public static int MaxIndex<T>(this T[] array) where T : INumber<T>, IMinMaxValue<T>
+    {
+        var max = T.MinValue;
+        var index = -1;
+
+        for (var i = 0; i < array.Length; i++)
+        {
+            if (array[i] <= max) continue;
+
+            max = array[i];
+            index = i;
+        }
+
+        return index;
+    }
 }
