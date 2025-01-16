@@ -55,7 +55,7 @@ public class Day15 : IRiddle
             {
                 if (grid[i][j] == 'O')
                 {
-                    sum += ((i + 1) * 100) + j + 1;
+                    sum += (i + 1) * 100 + j + 1;
                 }
             }
         }
@@ -193,7 +193,7 @@ public class Day15 : IRiddle
             {
                 if (grid[i][j] == '[')
                 {
-                    sum += ((i + 1) * 100) + j + 2;
+                    sum += (i + 1) * 100 + j + 2;
                 }
             }
         }

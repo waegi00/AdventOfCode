@@ -27,10 +27,10 @@ public class Day14 : IRiddle
 
         robots = robots.Select(r => ((r.x + r.vx * steps).Mod(width), (r.y + r.vy * steps).Mod(height), r.vx, r.vy)).ToList();
 
-        var q1 = robots.Count(r => r is { x: <= (width / 2) - 1, y: <= (height / 2) - 1 });
-        var q2 = robots.Count(r => r is { x: >= (width / 2) + 1, y: <= (height / 2) - 1 });
-        var q3 = robots.Count(r => r is { x: <= (width / 2) - 1, y: >= (height / 2) + 1 });
-        var q4 = robots.Count(r => r is { x: >= (width / 2) + 1, y: >= (height / 2) + 1 });
+        var q1 = robots.Count(r => r is { x: <= width / 2 - 1, y: <= height / 2 - 1 });
+        var q2 = robots.Count(r => r is { x: >= width / 2 + 1, y: <= height / 2 - 1 });
+        var q3 = robots.Count(r => r is { x: <= width / 2 - 1, y: >= height / 2 + 1 });
+        var q4 = robots.Count(r => r is { x: >= width / 2 + 1, y: >= height / 2 + 1 });
 
         return (q1 * q2 * q3 * q4).ToString();
     }
