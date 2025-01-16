@@ -209,6 +209,26 @@ public static class ArrayHelper
     }
 
     /// <summary>
+    /// Rotates by n elements
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="array">The array</param>
+    /// <param name="n">amount of cells to rotate</param>
+    /// <returns>The rotated array</returns>
+    public static T[] Rotate<T>(this T[] array, int n)
+    {
+        if (n == 0)
+        {
+            return array;
+        }
+
+        n %= array.Length;
+
+        var a = array[..^n].ToList();
+        return array[^n..].Concat(a).ToArray();
+    }
+
+    /// <summary>
     /// Rotates a row by n elements
     /// </summary>
     /// <typeparam name="T"></typeparam>
