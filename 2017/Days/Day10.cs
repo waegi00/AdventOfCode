@@ -34,7 +34,11 @@ public class Day10 : IRiddle
 
     public string SolveSecond()
     {
-        var lengths = this.InputToText().Select(x => (byte)x).ToList();
+        return KnotHash(this.InputToText().Select(x => (byte)x).ToList());
+    }
+
+    public static string KnotHash(List<byte> lengths)
+    {
         lengths.AddRange([17, 31, 73, 47, 23]);
 
         var list = Enumerable.Range(0, 256)
