@@ -5,6 +5,40 @@ namespace AdventOfCode.Library.Array;
 public static class ArrayHelper
 {
     /// <summary>
+    /// Return whether both arrays are equal by their values
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="array">The array</param>
+    /// <param name="other">The other array</param>
+    /// <returns>True if both arrays are equals by their values</returns>
+    public static bool EqualValues<T>(this T[][] array, T[][] other) where T : IComparable<T>
+    {
+        if (array.Length != other.Length)
+        {
+            return false;
+        }
+
+        for (var i = 0; i < array.Length; i++)
+        {
+            if (array[i].Length != other[i].Length)
+            {
+                return false;
+            }
+
+            for (var j = 0; j < array[i].Length; j++)
+            {
+                if (array[i][j].CompareTo(other[i][j]) != 0)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+
+    /// <summary>
     /// Prints the array
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -206,6 +240,48 @@ public static class ArrayHelper
     public static T Product<T>(this IEnumerable<T> numbers) where T : INumber<T>
     {
         return numbers.Aggregate(T.One, (product, num) => product * num);
+    }
+
+    /// <summary>
+    /// Flips all rows in the array
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="array">The array</param>
+    /// <returns>Flipped array</returns>
+    public static T[][] FlipRows<T>(this T[][] array)
+    {
+        var res = array.Select(x => x.ToArray()).ToArray();
+
+        foreach (var row in res)
+        {
+            System.Array.Reverse(row);
+        }
+
+        return res;
+    }
+
+    /// <summary>
+    /// Rotates an array 90 degrees to the right
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="array">The array</param>
+    /// <returns>Rotated array</returns>
+    public static T[][] Rotate90DegreesRight<T>(this T[][] array)
+    {
+        var n = array.Length;
+        var m = array[0].Length;
+
+        var rotatedMatrix = new T[m][];
+
+        for (var i = 0; i < m; i++)
+        {
+            rotatedMatrix[i] = new T[n];
+            for (var j = 0; j < n; j++)
+            {
+                rotatedMatrix[i][j] = array[n - 1 - j][i];
+            }
+        }
+        return rotatedMatrix;
     }
 
     /// <summary>
