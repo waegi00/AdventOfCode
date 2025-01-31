@@ -1,7 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using AdventOfCode.Interfaces;
+﻿using AdventOfCode.Interfaces;
 using AdventOfCode.Library.Input;
-using AdventOfCode.Library.String;
 
 namespace AdventOfCode._2017.Days;
 
