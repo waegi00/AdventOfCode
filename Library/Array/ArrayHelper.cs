@@ -178,6 +178,23 @@ public static class ArrayHelper
     }
 
     /// <summary>
+    /// Returns the position of all occurrences or the types default value
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="array">The array</param>
+    /// <param name="targets">Values to find</param>
+    /// <returns>IEnumerable with (x-position, y-position) of the matches</returns>
+    public static IEnumerable<(int i, int j)> FindAll<T>(this T[][] array, T[] targets)
+    {
+        var query = array
+            .SelectMany((row, i) => row.Select((v, j) => new { v, i, j }))
+            .Where(item => targets.Contains(item.v!))
+            .Select(item => (item.i, item.j));
+
+        return query;
+    }
+
+    /// <summary>
     /// Returns all possible permutations of the array
     /// </summary>
     /// <typeparam name="T"></typeparam>
