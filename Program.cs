@@ -1,8 +1,16 @@
 ﻿using System.Reflection;
+using AdventOfCode;
 using AdventOfCode.Interfaces;
 
 const int year = 2024;
 const bool all = false;
+const bool dayCreator = false;
+
+if (dayCreator)
+{
+    DayCreator.Create(year.ToString());
+    return;
+}
 
 var typesInNamespace = Assembly
     .GetExecutingAssembly()
