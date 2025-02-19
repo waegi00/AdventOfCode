@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode.Library.Char;
+﻿namespace AdventOfCode.Library.Array;
 
 public class JaggedArrayComparer<T>(IEqualityComparer<T>? elementComparer = null) : IEqualityComparer<T[][]>
 {
@@ -34,8 +34,8 @@ public class JaggedArrayComparer<T>(IEqualityComparer<T>? elementComparer = null
         unchecked
         {
             return obj.Aggregate(17, (current1, subArray) =>
-                subArray.Aggregate(current1, (current, item) => 
-                    current * 31 + (_elementComparer.GetHashCode(item))));
+                subArray.Aggregate(current1, (current, item) =>
+                    current * 31 + _elementComparer.GetHashCode(item)));
         }
     }
 }
