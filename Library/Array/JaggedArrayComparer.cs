@@ -35,7 +35,7 @@ public class JaggedArrayComparer<T>(IEqualityComparer<T>? elementComparer = null
         {
             return obj.Aggregate(17, (current1, subArray) =>
                 subArray.Aggregate(current1, (current, item) =>
-                    current * 31 + _elementComparer.GetHashCode(item)));
+                    current * 31 + _elementComparer.GetHashCode(item!)));
         }
     }
 }

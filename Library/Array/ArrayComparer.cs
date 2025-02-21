@@ -29,7 +29,7 @@ public class ArrayComparer<T>(IEqualityComparer<T>? elementComparer = null) : IE
         unchecked
         {
             return obj.Aggregate(17, (current, item) =>
-                current * 31 + _elementComparer.GetHashCode(item));
+                current * 31 + _elementComparer.GetHashCode(item!));
         }
     }
 }

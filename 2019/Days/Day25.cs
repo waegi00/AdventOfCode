@@ -1,6 +1,5 @@
 using AdventOfCode.Interfaces;
 using AdventOfCode.Library.Input;
-using System;
 
 namespace AdventOfCode._2019.Days;
 
@@ -8,7 +7,6 @@ public class Day25 : IRiddle
 {
     public string SolveFirst()
     {
-        const bool play = false;
         var solution = new List<string>
         {
             "south\n", "take mutex\n",
@@ -25,6 +23,8 @@ public class Day25 : IRiddle
 
         var computer = new Computer(memory);
 
+        Console.WriteLine("Play (y) or show solution (n)?");
+        var play = Console.ReadKey().KeyChar == 'y';
 
         while (true)
         {

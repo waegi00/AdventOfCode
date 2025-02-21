@@ -148,7 +148,7 @@ public partial class Day24 : IRiddle
         public int hp;
         public int damage;
         public int initiative;
-        public string attackType;
+        public string? attackType;
         public HashSet<string> immuneTo = [];
         public HashSet<string> weakTo = [];
 
@@ -161,12 +161,12 @@ public partial class Day24 : IRiddle
                 return 0;
             }
 
-            if (target.immuneTo.Contains(attackType))
+            if (target.immuneTo.Contains(attackType!))
             {
                 return 0;
             }
 
-            if (target.weakTo.Contains(attackType))
+            if (target.weakTo.Contains(attackType!))
             {
                 return effectivePower * 2;
             }

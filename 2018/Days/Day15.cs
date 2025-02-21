@@ -23,7 +23,6 @@ public class Day15 : IRiddle
             if (outcome.HasValue)
             {
                 return outcome.Value.ToString();
-                break;
             }
 
             attackPower++;
