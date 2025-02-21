@@ -59,6 +59,19 @@ public static class ArrayHelper
     /// <summary>
     /// Returns whether a position is valid in a given array or not
     /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TNumber"></typeparam>
+    /// <param name="array">1-D array</param>
+    /// <param name="p">position</param>
+    /// <returns>true if p is a valid position within array</returns>
+    public static bool IsValidPosition<T, TNumber>(this T[] array, TNumber p) where TNumber : INumber<TNumber>
+    {
+        return p >= TNumber.Zero && p < TNumber.CreateChecked(array.Length);
+    }
+
+    /// <summary>
+    /// Returns whether a position is valid in a given array or not
+    /// </summary>
     /// <param name="array">2-D array</param>
     /// <param name="i">x-position</param>
     /// <param name="j">y-position</param>

@@ -45,4 +45,17 @@ public static class NumberHelper
         }
         return a;
     }
+
+    /// <summary>
+    /// Checks if a number is between two others
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="item">Number to check</param>
+    /// <param name="start">Lower bound</param>
+    /// <param name="end">Upper bound</param>
+    /// <returns>True if item is between lower and upper (inclusive)</returns>
+    public static bool IsBetween<T>(this T item, T start, T end) where T : INumber<T>
+    {
+        return item >= start && item <= end;
+    }
 }

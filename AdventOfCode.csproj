@@ -38,6 +38,12 @@
     </ItemGroup>
 
     <ItemGroup>
+        <None Update="2020/Days/Inputs/Day*.txt">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
         <None Update="2022/Days/Inputs/Day*.txt">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
