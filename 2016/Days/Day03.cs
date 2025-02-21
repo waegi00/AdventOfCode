@@ -4,11 +4,11 @@ using AdventOfCode.Library.Input;
 
 namespace AdventOfCode._2016.Days;
 
-public class Day03 : IRiddle
+public partial class Day03 : IRiddle
 {
     public string SolveFirst()
     {
-        var regex = new Regex(@"\d+");
+        var regex = MyRegex();
         var input = this.InputToLines()
             .Select(x => regex.Matches(x).Select(m => int.Parse(m.Value)).ToList())
             .ToList();
@@ -21,7 +21,7 @@ public class Day03 : IRiddle
 
     public string SolveSecond()
     {
-        var regex = new Regex(@"\d+");
+        var regex = MyRegex();
         var input = this.InputToLines()
             .Select(x => regex.Matches(x).Select(m => int.Parse(m.Value)).ToList())
             .ToList();
@@ -43,4 +43,7 @@ public class Day03 : IRiddle
 
         return sum.ToString();
     }
+
+    [GeneratedRegex(@"\d+")]
+    private static partial Regex MyRegex();
 }

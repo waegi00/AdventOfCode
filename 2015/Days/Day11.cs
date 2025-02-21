@@ -4,7 +4,7 @@ using AdventOfCode.Library.Input;
 using AdventOfCode.Library.String;
 namespace AdventOfCode._2015.Days;
 
-public class Day11 : IRiddle
+public partial class Day11 : IRiddle
 {
     public string SolveFirst()
     {
@@ -38,7 +38,7 @@ public class Day11 : IRiddle
     private static bool ValidatePassword(string password)
     {
         if (password.Contains('i') || password.Contains('l') || password.Contains('o')) return false;
-        if (!Regex.IsMatch(password, @".*(.)\1+.*(.)\2+.*")) return false;
+        if (!MyRegex().IsMatch(password)) return false;
 
         for (var i = 0; i < password.Length - 2; i++)
         {
@@ -50,4 +50,7 @@ public class Day11 : IRiddle
 
         return false;
     }
+
+    [GeneratedRegex(@".*(.)\1+.*(.)\2+.*")]
+    private static partial Regex MyRegex();
 }

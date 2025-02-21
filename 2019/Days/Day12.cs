@@ -1,5 +1,4 @@
 using AdventOfCode.Interfaces;
-using AdventOfCode.Library.Array;
 using AdventOfCode.Library.Input;
 using AdventOfCode.Library.Math.Numbers;
 

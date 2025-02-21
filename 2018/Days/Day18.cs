@@ -1,6 +1,5 @@
 using AdventOfCode.Interfaces;
 using AdventOfCode.Library.Array;
-using AdventOfCode.Library.Char;
 using AdventOfCode.Library.Input;
 using AdventOfCode.Library.String;
 

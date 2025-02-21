@@ -4,7 +4,7 @@ using AdventOfCode.Library.Input;
 
 namespace AdventOfCode._2015.Days;
 
-public class Day15 : IRiddle
+public partial class Day15 : IRiddle
 {
     public string SolveFirst()
     {
@@ -12,7 +12,7 @@ public class Day15 : IRiddle
 
         var ingredients = input.Select(x =>
         {
-            var matches = new Regex("-?\\d+").Matches(x);
+            var matches = MyRegex().Matches(x);
             var nums = matches.Select(m => int.Parse(m.Value)).ToList();
             return new Ingredient(nums[0], nums[1], nums[2], nums[3], nums[4]);
         }).ToList();
@@ -32,7 +32,7 @@ public class Day15 : IRiddle
 
         var ingredients = input.Select(x =>
         {
-            var matches = new Regex("-?\\d+").Matches(x);
+            var matches = MyRegex().Matches(x);
             var nums = matches.Select(m => int.Parse(m.Value)).ToList();
             return new Ingredient(nums[0], nums[1], nums[2], nums[3], nums[4]);
         }).ToList();
@@ -88,4 +88,7 @@ public class Day15 : IRiddle
             GenerateCombinations(total - i, parts, combination, index + 1, results);
         }
     }
+
+    [GeneratedRegex("-?\\d+")]
+    private static partial Regex MyRegex();
 }

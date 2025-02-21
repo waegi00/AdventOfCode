@@ -4,13 +4,13 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode._2015.Days;
 
-public class Day05 : IRiddle
+public partial class Day05 : IRiddle
 {
     public string SolveFirst()
     {
         var input = this.InputToLines();
 
-        var vowelPattern = new Regex(@"[aeiou]");
+        var vowelPattern = MyRegex();
         var doubleLetterPattern = new Regex(@"(.)\1");
         var forbiddenPattern = new Regex(@"(ab|cd|pq|xy)");
 
@@ -35,4 +35,7 @@ public class Day05 : IRiddle
 
         return sum.ToString();
     }
+
+    [GeneratedRegex(@"[aeiou]")]
+    private static partial Regex MyRegex();
 }

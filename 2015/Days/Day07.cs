@@ -4,7 +4,7 @@ using AdventOfCode.Library.Input;
 
 namespace AdventOfCode._2015.Days;
 
-public class Day07 : IRiddle
+public partial class Day07 : IRiddle
 {
     private readonly Dictionary<string, int> _cache = new();
 
@@ -66,7 +66,7 @@ public class Day07 : IRiddle
         }
 
         var value = 0;
-        if (Regex.IsMatch(instruction, @"^[a-z]+$"))
+        if (MyRegex().IsMatch(instruction))
         {
             value = Evaluate(instruction, instructions);
         }
@@ -99,4 +99,7 @@ public class Day07 : IRiddle
         _cache[wire] = value;
         return value;
     }
+
+    [GeneratedRegex(@"^[a-z]+$")]
+    private static partial Regex MyRegex();
 }

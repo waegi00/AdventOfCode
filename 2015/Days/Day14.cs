@@ -4,13 +4,13 @@ using AdventOfCode.Library.Input;
 
 namespace AdventOfCode._2015.Days;
 
-public class Day14 : IRiddle
+public partial class Day14 : IRiddle
 {
     public string SolveFirst()
     {
         var input = this.InputToLines();
 
-        var regex = new Regex(@"\d+");
+        var regex = MyRegex();
 
         var reindeers = new List<(int speed, int time, int pause)>();
 
@@ -48,7 +48,7 @@ public class Day14 : IRiddle
     {
         var input = this.InputToLines();
 
-        var regex = new Regex(@"\d+");
+        var regex = MyRegex();
 
         var reindeers = new List<(int speed, int time, int pause)>();
 
@@ -102,4 +102,7 @@ public class Day14 : IRiddle
 
         return stats.Max(s => s.points).ToString();
     }
+
+    [GeneratedRegex(@"\d+")]
+    private static partial Regex MyRegex();
 }

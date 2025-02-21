@@ -5,7 +5,7 @@ using AdventOfCode.Library.Input;
 
 namespace AdventOfCode._2015.Days;
 
-public class Day06 : IRiddle
+public partial class Day06 : IRiddle
 {
     public string SolveFirst()
     {
@@ -19,7 +19,7 @@ public class Day06 : IRiddle
 
         foreach (var line in input)
         {
-            var numsRegex = new Regex(@"\d+,\d+");
+            var numsRegex = MyRegex();
 
             var matches = numsRegex.Matches(line);
             var m1 = matches[0].Value.Split(',');
@@ -59,7 +59,7 @@ public class Day06 : IRiddle
 
         foreach (var line in input)
         {
-            var numsRegex = new Regex(@"\d+,\d+");
+            var numsRegex = MyRegex();
 
             var matches = numsRegex.Matches(line);
             var m1 = matches[0].Value.Split(',');
@@ -86,4 +86,7 @@ public class Day06 : IRiddle
 
         return grid.SelectMany(x => x).Sum().ToString();
     }
+
+    [GeneratedRegex(@"\d+,\d+")]
+    private static partial Regex MyRegex();
 }

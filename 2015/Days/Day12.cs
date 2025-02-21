@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace AdventOfCode._2015.Days;
 
-public class Day12 : IRiddle
+public partial class Day12 : IRiddle
 {
     public string SolveFirst()
     {
@@ -13,7 +13,7 @@ public class Day12 : IRiddle
 
         var sum = 0;
 
-        foreach (Match match in new Regex(@"-?\d+").Matches(input))
+        foreach (Match match in MyRegex().Matches(input))
         {
             sum += int.Parse(match.Value);
         }
@@ -54,4 +54,7 @@ public class Day12 : IRiddle
                 return 0;
         }
     }
+
+    [GeneratedRegex(@"-?\d+")]
+    private static partial Regex MyRegex();
 }
