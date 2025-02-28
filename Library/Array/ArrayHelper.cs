@@ -291,6 +291,24 @@ public static class ArrayHelper
     }
 
     /// <summary>
+    /// Flips all columns in the array
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="array">The array</param>
+    /// <returns>Flipped array</returns>
+    public static T[][] FlipCols<T>(this T[][] array)
+    {
+        var res = new T[array.Length][];
+
+        for (var i = 0; i < array.Length; i++)
+        {
+            res[i] = array[array.Length - i - 1];
+        }
+
+        return res;
+    }
+
+    /// <summary>
     /// Rotates an array 90 degrees to the right
     /// </summary>
     /// <typeparam name="T"></typeparam>
