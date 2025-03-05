@@ -17,6 +17,31 @@ public static class NumberHelper
     }
 
     /// <summary>
+    /// Calculates Pow(baseValue, exponent) % modulus
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="baseValue">Base</param>
+    /// <param name="exponent">Exponent</param>
+    /// <param name="modulus">Modulus</param>
+    /// <returns>(baseValue ^ exponent) % modulus</returns>
+    public static T ModPow<T>(this T baseValue, T exponent, T modulus) where T : INumber<T>
+    {
+        var result = T.One;
+        var two = T.One + T.One;
+
+        while (exponent > T.Zero)
+        {
+            if (!(exponent / two * two == exponent))
+            {
+                result = result * baseValue % modulus;
+            }
+            baseValue = baseValue * baseValue % modulus;
+            exponent /= two;
+        }
+        return result;
+    }
+
+    /// <summary>
     /// Calculates Least common multiple of two numbers
     /// </summary>
     /// <typeparam name="T"></typeparam>
