@@ -83,4 +83,24 @@ public static class NumberHelper
     {
         return item >= start && item <= end;
     }
+
+    /// <summary>
+    /// Calculates the median of a number array
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="data">The array</param>
+    /// <returns>The median element</returns>
+    public static T Median<T>(this T[] data) where T : INumber<T>
+    {
+        var sortedData = data.OrderBy(x => x).ToArray();
+        var count = sortedData.Length;
+        var midIndex = count / 2;
+
+        if (count % 2 == 0)
+        {
+            return (sortedData[midIndex - 1] + sortedData[midIndex]) / (T.One + T.One);
+        }
+
+        return sortedData[midIndex];
+    }
 }
