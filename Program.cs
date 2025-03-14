@@ -2,7 +2,7 @@
 using AdventOfCode;
 using AdventOfCode.Interfaces;
 
-const int year = 2021;
+const int year = 2022;
 const bool all = false;
 const bool dayCreator = false;
 
