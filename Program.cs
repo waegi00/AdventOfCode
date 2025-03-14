@@ -22,14 +22,14 @@ var typesInNamespace = Assembly
                 && typeof(IRiddle).IsAssignableFrom(t))
     .OrderByDescending(t => t.Name);
 
-var riddles = typesInNamespace.Select(Activator.CreateInstance).Cast<IRiddle>().ToList();
+var riddles = typesInNamespace.Select(Activator.CreateInstance).Cast<IRiddle>();
 
 if (!all)
 {
-    riddles = riddles.GetRange(0, 1);
+    riddles = riddles.Take(1);
 }
 
-riddles.ForEach(riddle =>
+riddles.ToList().ForEach(riddle =>
 {
     Console.WriteLine("Riddle " + riddle.GetType().Name);
     Console.WriteLine("Solution 1: " + riddle.SolveFirst());
